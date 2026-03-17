@@ -1,0 +1,42 @@
+# ============================================
+# SecureSystems — Ortak Sandbox Temel Katmanı
+# ============================================
+# Tüm sandbox Dockerfile'ları bu imajı temel alır.
+# Ortak güvenlik araçları ve sistem paketleri burada kurulur.
+# ============================================
+
+FROM ubuntu:24.04
+
+# Etkileşimsiz kurulum
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Temel sistem paketleri + güvenlik araçları
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    wget \
+    git \
+    ca-certificates \
+    gnupg \
+    jq \
+    unzip \
+    net-tools \
+    iputils-ping \
+    dnsutils \
+    nmap \
+    tcpdump \
+    openssl \
+    python3 \
+    python3-pip \
+    && rm -rf /var/lib/apt/lists/*
+
+# Güvenlik: sandbox kullanıcısı oluştur (root olarak çalışma)
+RUN groupadd -r sandbox && useradd -r -g sandbox -m -s /bin/bash sandbox
+
+# Çalışma dizini
+WORKDIR /workspace
+
+# Sahipliği sandbox kullanıcısına ver
+RUN chown -R sandbox:sandbox /workspace
+
+LABEL maintainer="Keyvan Arasteh <keyvan@istinye.edu.tr>"
+LABEL description="SecureSystems ortak sandbox temel katmanı"

@@ -1,0 +1,70 @@
+# ============================================
+# SecureSystems — Docker Compose Orkestrasyon
+# ============================================
+# Tüm servisleri tek komutla başlatır:
+#   docker compose up
+#   docker compose up -d          (arka planda)
+#   docker compose up app         (sadece uygulama)
+#   docker compose up sandbox     (sadece sandbox)
+# ============================================
+
+services:
+  # ─── Ana Uygulama ───
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: securesystems-app
+    ports:
+      - "${PORT:-3000}:3000"
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=${NODE_ENV:-development}
+    volumes:
+      - ./src:/app/src:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    networks:
+      - securesystems-net
+
+  # ─── CLI Sandbox ───
+  sandbox:
+    build:
+      context: .
+      dockerfile: Dockerfile.sandbox
+    container_name: securesystems-sandbox
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./workspace:/workspace
+    networks:
+      - securesystems-net
+    profiles:
+      - security
+
+  # ─── Tarayıcı Sandbox ───
+  sandbox-browser:
+    build:
+      context: .
+      dockerfile: Dockerfile.sandbox-browser
+    container_name: securesystems-sandbox-browser
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./workspace:/workspace
+    # Chromium için paylaşılan bellek
+    shm_size: "2gb"
+    networks:
+      - securesystems-net
+    profiles:
+      - security
+
+networks:
+  securesystems-net:
+    driver: bridge

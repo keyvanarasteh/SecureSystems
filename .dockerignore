@@ -1,0 +1,47 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Node bağımlılıkları (container içinde kurulacak)
+node_modules
+
+# Build çıktıları
+dist
+build
+target
+
+# Ortam dosyaları (secret'lar)
+.env
+.env.local
+.env.*.local
+.env.production
+
+# Editör/IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# Dokümantasyon (image'da gerekli değil)
+docs
+*.md
+LICENSE
+CHANGELOG.md
+
+# Test dosyaları
+test
+coverage
+.nyc_output
+
+# Docker dosyaları (kendini kopyalamasın)
+Dockerfile*
+docker-compose*.yml
+docker-setup.sh
+.dockerignore
+
+# Güvenlik
+.secrets.baseline
+.detect-secrets.cfg
+*.pem
+*.key

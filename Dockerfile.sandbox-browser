@@ -1,0 +1,49 @@
+# ============================================
+# SecureSystems — Tarayıcı Sandbox Ortamı
+# ============================================
+# Headless browser tabanlı güvenlik testleri.
+# Web uygulama güvenliği taramaları, Puppeteer/Playwright testleri.
+# ============================================
+
+FROM securesystems-sandbox-common:latest
+
+# Node.js kurulumu (Puppeteer / Playwright için)
+RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
+    && apt-get install -y --no-install-recommends nodejs \
+    && rm -rf /var/lib/apt/lists/*
+
+# Chromium bağımlılıkları (headless browser)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    chromium-browser \
+    fonts-liberation \
+    libasound2t64 \
+    libatk-bridge2.0-0t64 \
+    libatk1.0-0t64 \
+    libcups2t64 \
+    libdrm2 \
+    libgbm1 \
+    libgtk-3-0t64 \
+    libnspr4 \
+    libnss3 \
+    libx11-xcb1 \
+    libxcomposite1 \
+    libxdamage1 \
+    libxrandr2 \
+    xdg-utils \
+    && rm -rf /var/lib/apt/lists/*
+
+# Puppeteer — sistem Chromium kullan (indirme yapma)
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
+
+# Tarayıcı test araçları
+RUN npm install -g --unsafe-perm \
+    puppeteer \
+    playwright
+
+# Sandbox kullanıcısına geç
+USER sandbox
+
+WORKDIR /workspace
+
+CMD ["/bin/bash"]

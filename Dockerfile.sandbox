@@ -1,0 +1,31 @@
+# ============================================
+# SecureSystems — CLI Sandbox Ortamı
+# ============================================
+# Komut satırı tabanlı güvenlik test ortamı.
+# Ortak katmandan (sandbox-common) türetilir.
+# ============================================
+
+FROM securesystems-sandbox-common:latest
+
+# Ek güvenlik test araçları
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    nikto \
+    sqlmap \
+    hydra \
+    whois \
+    traceroute \
+    && rm -rf /var/lib/apt/lists/*
+
+# Python güvenlik kütüphaneleri
+RUN pip3 install --no-cache-dir --break-system-packages \
+    requests \
+    beautifulsoup4 \
+    scapy \
+    paramiko
+
+# Sandbox kullanıcısına geç
+USER sandbox
+
+WORKDIR /workspace
+
+CMD ["/bin/bash"]
