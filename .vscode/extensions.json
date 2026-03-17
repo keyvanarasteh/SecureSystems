@@ -1,0 +1,17 @@
+{
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "ms-azuretools.vscode-docker",
+    "oven.bun-vscode",
+    "eamodio.gitlens",
+    "mhutchie.git-graph",
+    "mikestead.dotenv",
+    "redhat.vscode-yaml",
+    "redhat.vscode-xml",
+    "foxundermoon.shell-format",
+    "timonwong.shellcheck",
+    "streetsidesoftware.code-spell-checker",
+    "christian-kohler.path-intellisense",
+    "bierner.markdown-mermaid"
+  ]
+}
