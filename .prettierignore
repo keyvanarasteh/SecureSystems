@@ -1,0 +1,35 @@
+# Build çıktıları
+dist/
+build/
+target/
+
+# Bağımlılıklar
+node_modules/
+
+# Versiyon kontrol
+.git/
+
+# Docker
+Dockerfile*
+docker-compose*.yml
+
+# Coverage & test
+coverage/
+.nyc_output/
+
+# Ortam dosyaları
+.env*
+
+# Lock dosyaları
+package-lock.json
+bun.lockb
+pnpm-lock.yaml
+
+# Markdown (formatlama gereksiz)
+*.md
+
+# Secrets
+.secrets.baseline
+.detect-secrets.cfg
+*.pem
+*.key

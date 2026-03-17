@@ -1,0 +1,36 @@
+# npm publish sırasında dahil EDİLMEYECEK dosyalar
+
+# Kaynak ve geliştirme dosyaları
+src/
+test/
+docs/
+coverage/
+
+# Konfigürasyon dosyaları
+.vscode/
+.github/
+.agents/
+.agent/
+
+# Ortam ve güvenlik
+.env*
+!.env.example
+.secrets.baseline
+.detect-secrets.cfg
+
+# Docker dosyaları
+Dockerfile*
+docker-compose*.yml
+docker-setup.sh
+.dockerignore
+
+# Editor/IDE
+*.swp
+*.swo
+
+# Agent talimatları
+AGENTS.md
+CLAUDE.md
+GEMINI.md
+VISION.md
+CONTIBUTING.md

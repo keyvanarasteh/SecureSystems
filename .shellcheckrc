@@ -1,0 +1,13 @@
+# ShellCheck yapılandırması
+# https://www.shellcheck.net/wiki/
+
+# Varsayılan kabuk: bash
+shell=bash
+
+# Dışlanan kurallar:
+# SC1091 — kaynak dosya bulunamadı (. veya source ile yüklenen dosyalar)
+# SC2034 — kullanılmayan değişken (ortam değişkenleri için false positive)
+disable=SC1091,SC2034
+
+# Harici kaynaklardan gelen değişkenleri kabul et
+external-sources=true
